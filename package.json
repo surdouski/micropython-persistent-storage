@@ -1,0 +1,8 @@
+{
+  "urls": [
+    ["mpstore/__init__.py", "github:surdouski/micropython-persistent-storage/mpstore/__init__.py"],
+    ["mpstore/store.py", "github:surdouski/micropython-persistent-storage/mpstore/store.py"]
+  ],
+  "deps": [],
+  "version": "0.1"
+}
