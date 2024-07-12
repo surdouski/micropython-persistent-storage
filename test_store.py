@@ -1,7 +1,8 @@
 import unittest
 import os
 
-from mpstore.store import load_store, read_store, write_store, STORE_PATH, TEMP_STORE_PATH
+from mpstore import load_store, read_store, write_store
+from mpstore.store import STORE_PATH, TEMP_STORE_PATH
 
 
 class TestStore(unittest.TestCase):

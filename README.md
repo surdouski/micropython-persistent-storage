@@ -24,7 +24,7 @@ $ mpremote mip install github:surdouski/micropython-persistent-storage
 To load the entire store:
 
 ```python
-from mpstore.store import load_store
+from mpstore import load_store
 
 store = load_store()
 print(store)
@@ -35,7 +35,7 @@ print(store)
 To read a specific value from the store:
 
 ```python
-from mpstore.store import read_store
+from mpstore import read_store
 
 value = read_store("your_key")
 print(value)
@@ -46,7 +46,7 @@ print(value)
 To write a key-value pair to the store:
 
 ```python
-from mpstore.store import write_store
+from mpstore import write_store
 
 write_store("your_key", "your_value")
 ```
