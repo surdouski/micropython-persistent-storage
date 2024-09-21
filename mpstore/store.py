@@ -69,7 +69,6 @@ def _create_store_if_not_exists(path: str):
             current_path += '/' + part
             try:
                 os.mkdir(current_path)  # Create directory
-                print(os.stat(current_path))
             except OSError:
                 pass  # Ignore if the directory already exists
     # make file if needed
