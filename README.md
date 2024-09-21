@@ -27,7 +27,8 @@ To load the entire store:
 from mpstore import load_store
 
 store = load_store()
-print(store)
+store = load_store(path="/some/path/store.json")  # Optionally define a path
+print(store)  # {"key": "value}
 ```
 
 ### Reading from the Store
@@ -38,6 +39,7 @@ To read a specific value from the store:
 from mpstore import read_store
 
 value = read_store("your_key")
+value = read_store("your_key", path="/some/path/store.json")
 print(value)
 ```
 
@@ -49,25 +51,32 @@ To write a key-value pair to the store:
 from mpstore import write_store
 
 write_store("your_key", "your_value")
+write_store("your_key", "your_value", path="/some/path/store.json")
 ```
+
+### Keys for read/write
+
+Keys for reading and writing use a dot syntax for nested JSON. `"key1.nested1.nested2"` as the key argument in the `read_store`
+or `write_store` functions would retrieve or write the value at `{"key1": {"nested1": {"nested2": "value"}}}`.
+
 
 ## API Reference
 
-### `load_store() -> any`
+### `load_store(path: str = '.store.json') -> any`
 
 Returns all keys and values from the store.
 
-### `read_store(key: str) -> any`
+### `read_store(key: str, path: str = '.store.json') -> any`
 
 Returns the value associated with the given key. Returns `None` if the key does not exist.
 
-### `write_store(key: str, value: any)`
+### `write_store(key: str, value: any, path: str = '.store.json')`
 
 Writes the key-value pair to the store, overwriting any previous value.
 
 ## Testing
 
-The project includes a test suite using the `unittest` framework. The tests are located in `test_store.py`.
+The project includes a test suite using the `unittest` framework. The tests are located in `test.py`.
 
 ### Running Tests
 
