@@ -79,8 +79,5 @@ def _create_store_if_not_exists(path: str):
         if oserror.errno != 2:
             raise oserror
 
-        temp_path = path + TEMP_EXTENSION
-        print(temp_path)
-        with open(temp_path, "wb") as temp_f:
-            json.dump({}, temp_f)
-        os.rename(temp_path, path)
+        with open(path, "wb") as f:
+            json.dump({}, f)
