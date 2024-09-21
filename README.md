@@ -54,6 +54,12 @@ write_store("your_key", "your_value")
 write_store("your_key", "your_value", path="/some/path/store.json")
 ```
 
+### Keys for read/write
+
+Keys for reading and writing use a dot syntax for nested JSON. `"key1.nested1.nested2"` as the key argument in the `read_store`
+or `write_store` functions would retrieve or write the value at `{"key1": {"nested1": {"nested2": "value"}}}`.
+
+
 ## API Reference
 
 ### `load_store(path: str = '.store.json') -> any`
