@@ -69,6 +69,7 @@ def _create_store_if_not_exists(path: str):
             current_path += '/' + part
             try:
                 os.mkdir(current_path)  # Create directory
+                print(os.stat(current_path))
             except OSError:
                 pass  # Ignore if the directory already exists
     # make file if needed
@@ -79,6 +80,5 @@ def _create_store_if_not_exists(path: str):
         if oserror.errno != 2:
             raise oserror
 
-        print('test')
         with open(path, "wb") as f:
             json.dump({}, f)
