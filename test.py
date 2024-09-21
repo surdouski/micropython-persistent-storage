@@ -1,5 +1,6 @@
 import unittest
 import os
+import json
 
 from mpstore import load_store, read_store, write_store
 from mpstore.store import STORE_PATH, TEMP_STORE_PATH
@@ -50,6 +51,23 @@ class TestStore(unittest.TestCase):
         write_store("foo", "bar")
 
         assert read_store("foo") == "bar"
+
+    def test_nested_write_and_read(self):
+        write_store("item1.nested1", 2)
+        write_store("item1.nested2", "value2")
+
+        assert read_store("item1.nested1") == 2
+        assert read_store("item1.nested2") == "value2"
+
+    def test_nested_read_nonexistent_key(self):
+        write_store("item1.nested1", 2)
+
+        assert read_store("item1.nested3") is None
+
+    def test_deeply_nested_write_and_read(self):
+        write_store("level1.level2.level3", "deep_value")
+
+        assert read_store("level1.level2.level3") == "deep_value"
 
     def _assert_store_exists_and_temp_store_dne(self):
         assert os.stat(STORE_PATH)  # will raise error if does not exist

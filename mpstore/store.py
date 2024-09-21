@@ -18,7 +18,7 @@ def read_store(key: str) -> any:
     _create_store_if_not_exists()
     with open(STORE_PATH) as f:
         json_content = json.load(f)
-        return json_content.get(key)  # if key does not exist, returns None
+        return _get_nested_json_value(json_content, key)  # if key does not exist, returns None
 
 
 def write_store(key: str, value: any):
@@ -26,10 +26,31 @@ def write_store(key: str, value: any):
     _create_store_if_not_exists()
     with open(STORE_PATH, "rb") as f:
         json_content = json.load(f)
-        json_content[key] = value
+        _set_nested_json_value(json_content, key, value)
     with open(TEMP_STORE_PATH, "wb") as temp_f:
         json.dump(json_content, temp_f)  # write to temp file
     os.rename(TEMP_STORE_PATH, STORE_PATH)  # atomic operation
+
+
+def _get_nested_json_value(data: dict, key: str) -> any:
+    """Gets the value from a nested dict given a dot-separated key."""
+    keys = key.split(".")
+    for k in keys:
+        data = data.get(k, None)
+        if data is None:
+            return None
+    return data
+
+
+def _set_nested_json_value(data: dict, key: str, value: any):
+    """Sets a value in a nested dict given a dot-separated key."""
+    keys = key.split(".")
+    d = data
+    for k in keys[:-1]:
+        if k not in d:
+            d[k] = {}
+        d = d[k]
+    d[keys[-1]] = value
 
 
 def _create_store_if_not_exists():
